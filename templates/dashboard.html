@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nobody's Fool</title>
+</head>
+<body>
+
+<h2>Students</h2>
+<table>
+  <tr>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Student_ID</th>
+  </tr>
+
+{% for student in students %}
+    <tr>
+    <td>student['FirstName']</td>
+    <td>student['LastName']</td>
+    <td>student['Student_ID']</td>
+  </tr>
+{% endfor %}
+</table>
+
+<h2>Quizzes</h2>
+<table>
+  <tr>
+    <th>Quiz_ID</th>
+    <th>Quiz_Name</th>
+    <th>Question_Number</th>
+    <th>Quiz_Date</th>
+  </tr>
+
+{% for quiz in quizzes %}
+    <tr>
+    <td>quiz['Quiz_ID']</td>
+    <td>quiz['Quiz_Name']</td>
+    <td>quiz['Question_Number']</td>
+    <td>quiz['Quiz_Date']</td>
+  </tr>
+{% endfor %}
+</table>
+</body>
+</html>

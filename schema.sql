@@ -13,7 +13,8 @@ CREATE TABLE Quizzes(
 Quiz_ID INT,
 Quiz_Name VARCHAR(100),
 Grade INT,
-Question_Number INT
+Question_Number INT,
+Quiz_Date DATE
 );
 
 DROP TABLE IF EXISTS Results;

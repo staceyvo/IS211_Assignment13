@@ -1,9 +1,10 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from wtforms import Form, validators, StringField, PasswordField
 
 
 app = Flask(__name__)
+app.secret_key = 'Footloose'
 
 class LoginForm(Form):
     #create a login form
@@ -23,14 +24,31 @@ def home_route():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     # entering the danger zone
-    if request.method == 'POST':
-        if LoginForm(request.form).validate():
-            username, password = request.form['username'], request.form['password']
-            if (username, password) == ('admin', 'password'):
-                session['username'] = request.form['username']
-                return redirect(url_for('/'))
-    return render_template('loggins', my_form=LoginForm())
+    error = None
 
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or \
+                        request.form['password'] != 'password':
+            error = 'Invalid username or password. Please try again!'
+        else:
+            flash('You were successfully logged in')
+            return redirect(url_for('dashboard'))
+    return render_template('loggins.html', my_form=LoginForm(), error=error)
+
+
+@app.route('/dashboard', methods=['POST', 'GET'])
+def dashboard():
+    # fetch data
+    # execute query
+    con = sqlite3.connect('hw13.db')
+    cur = con.cursor()
+
+    # process result
+    students = cur.execute('SELECT * FROM Students').fetchall()
+    quizzes = cur.execute('SELECT * FROM Quizzes').fetchall()
+
+    # return template with added data
+    return render_template('dashboard.html', students=students, quizzes=quizzes)
 
 
 @app.route('/create_database')
