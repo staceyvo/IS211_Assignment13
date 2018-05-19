@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All the Pretty Little Ponies</title>
+</head>
+<body>
+
+{% if error %}
+<p><strong>Error:</strong> {{ error }}
+    {% endif %}
+
+    <form action="" method=post>
+        <dl>
+            <dt>FirstName:</dt>
+
+            <dd>
+                <input type=text name=FirstName
+                       value="{{request.form.FirstName }}">
+            </dd>
+
+            <dt>LastName:</dt>
+            <dd><input type=text name=LastName
+                       value="{{request.form.FirstName }}">
+            </dd>
+
+        </dl>
+        <p><input type=submit></p>
+    </form>
+
+</body>
+</html>

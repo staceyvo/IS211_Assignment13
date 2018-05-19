@@ -11,6 +11,12 @@ class LoginForm(Form):
     username = StringField(u'Username', [validators.required(), validators.length(max=100)])
     password = PasswordField(u'Password', [validators.required(), validators.length(max=100)])
 
+class Add_Student(Form):
+    # add student information
+    FirstName = StringField(u'FirstName', [validators.required(), validators.length(max=100)])
+    LastName = StringField(u'LastName', [validators.required(), validators.length(max=100)])
+
+
 @app.route('/', methods=['GET'])
 def home_route():
     if 'username' in session:
@@ -46,9 +52,27 @@ def dashboard():
     # process result
     students = cur.execute('SELECT * FROM Students').fetchall()
     quizzes = cur.execute('SELECT * FROM Quizzes').fetchall()
+    con.close()
 
     # return template with added data
     return render_template('dashboard.html', students=students, quizzes=quizzes)
+
+
+@app.route('/student/add', methods=['POST', 'GET'])
+def add_student():
+    error = None
+
+    if request.method == 'POST':
+        if Add_Student(request.form).validate():
+            con = sqlite3.connect('hw13.db')
+            cur = con.cursor()
+            cur.execute('INSERT INTO Students VALUES(?,?)', (request.form['FirstName'], request.form['LastName']))
+            con.commit()
+            con.close()
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid Input')
+    return render_template('playing_with_the_boys.html', my_form=Add_Student(), error=error)
 
 
 @app.route('/create_database')
