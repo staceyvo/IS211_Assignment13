@@ -34,10 +34,10 @@
 
 {% for quiz in quizzes %}
     <tr>
-    <td>quiz['Quiz_ID']</td>
-    <td>quiz['Quiz_Name']</td>
-    <td>quiz['Question_Number']</td>
-    <td>quiz['Quiz_Date']</td>
+    <td>{{ quiz[0] }}</td>
+    <td>{{ quiz[1] }}</td>
+    <td>{{ quiz[2] }}</td>
+    <td>{{ quiz[3] }}</td>
   </tr>
 {% endfor %}
 </table>

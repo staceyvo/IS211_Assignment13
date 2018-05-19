@@ -12,9 +12,9 @@ DROP TABLE IF EXISTS Quizzes;
 CREATE TABLE Quizzes(
 Quiz_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 Quiz_Name VARCHAR(100),
-Grade INT,
+
 Question_Number INT,
-Quiz_Date DATE
+Quiz_Date TEXT
 );
 
 DROP TABLE IF EXISTS Results;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Will Follow</title>
+</head>
+<body>
+
+{% if error %}
+<p><strong>Error:</strong> {{ error }}
+    {% endif %}
+
+    <form action="" method=post>
+        <dl>
+            <dt>Quiz_Name:</dt>
+
+            <dd>
+                <input type=text name=Quiz_Name
+                       value="{{request.form.Quiz_Name }}">
+            </dd>
+
+            <dt>Question_Number:</dt>
+            <dd><input type=text name=Question_Number
+                       value="{{request.form.Question_Number }}">
+            </dd>
+
+            <dt>Quiz_Date:</dt>
+            <dd>
+                <input type=date name=Quiz_Date
+                       value="{{request.form.Quiz_Date }}">
+            </dd>
+
+        </dl>
+        <p><input type=submit></p>
+    </form>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from wtforms import Form, validators, StringField, PasswordField
+from wtforms import Form, validators, StringField, PasswordField, DateField
 
 
 app = Flask(__name__)
@@ -15,6 +15,12 @@ class Add_Student(Form):
     # add student information
     FirstName = StringField(u'FirstName', [validators.required(), validators.length(max=100)])
     LastName = StringField(u'LastName', [validators.required(), validators.length(max=100)])
+
+class Add_Quiz(Form):
+    # add student information
+    Quiz_Name = StringField(u'Quiz_Name', [validators.required(), validators.length(max=100)])
+    Question_Number = StringField(u'Question_Number', [validators.required(), validators.length(max=100)])
+    Quiz_Date = DateField(u'Quiz_Date', [validators.required()], format='%Y-%m-%d')
 
 
 @app.route('/', methods=['GET'])
@@ -73,6 +79,23 @@ def add_student():
         else:
             flash('Invalid Input')
     return render_template('playing_with_the_boys.html', my_form=Add_Student(), error=error)
+
+
+@app.route('/quiz/add', methods=['POST', 'GET'])
+def add_quiz():
+    error = None
+
+    if request.method == 'POST':
+        if Add_Quiz(request.form).validate():
+            con = sqlite3.connect('hw13.db')
+            cur = con.cursor()
+            cur.execute('INSERT INTO Quizzes VALUES(?,?,?,?)', (None, request.form['Quiz_Name'], request.form['Question_Number'], request.form['Quiz_Date']))
+            con.commit()
+            con.close()
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid Input')
+    return render_template('watching_the_river_run.html', my_form=Add_Quiz(), error=error)
 
 
 @app.route('/create_database')
