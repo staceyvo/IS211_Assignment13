@@ -66,7 +66,7 @@ def add_student():
         if Add_Student(request.form).validate():
             con = sqlite3.connect('hw13.db')
             cur = con.cursor()
-            cur.execute('INSERT INTO Students VALUES(?,?)', (request.form['FirstName'], request.form['LastName']))
+            cur.execute('INSERT INTO Students VALUES(?,?,?)', (request.form['FirstName'], request.form['LastName'], None))
             con.commit()
             con.close()
             return redirect(url_for('dashboard'))
@@ -81,7 +81,7 @@ def create_database():
     cur = con.cursor()
     with open('schema.sql') as fp:
         cur.executescript(fp.read())
-
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     app.run(host='localhost')
