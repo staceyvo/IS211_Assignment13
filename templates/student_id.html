@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This Is It</title>
+</head>
+<body>
+
+<h2>Results</h2>
+<table>
+  <tr>
+    <th>Quiz Name</th>
+    <th>Grade</th>
+  </tr>
+
+{% for result in data %}
+    <tr>
+    <td>{{ result[0] }}</td>
+    <td>{{ result[1] }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+</table>
+</body>
+</html>

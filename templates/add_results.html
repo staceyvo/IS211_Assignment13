@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add result</title>
+</head>
+<body>
+
+{% include 'links.html' %}
+
+    {% if error %}
+<p><strong>Error:</strong> {{ error }}
+    {% endif %}
+
+    <form action="" method=post>
+        <div>
+            {{ my_form.student.label }} {{ my_form.student }}
+        </div>
+
+        <div>
+            {{ my_form.quiz.label }} {{ my_form.quiz }}
+        </div>
+
+        <div>
+            {{ my_form.grade.label }} {{ my_form.grade }}
+        </div>
+<p><input type=submit></p>
+</form>
+
+</body>
+</html>
